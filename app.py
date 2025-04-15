@@ -1,16 +1,11 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 import numpy as np
 import os
 import pandas as pd
 
-# 한글 폰트 경로 확인
-font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"
-if os.path.exists(font_path):
-    fontprop = fm.FontProperties(fname=font_path)
-else:
-    fontprop = None
+# 기본 폰트를 DejaVu Sans로 설정 (한글 지원)
+plt.rcParams['font.family'] = 'DejaVu Sans'
 
 # 정동-카테고리 매핑
 affective_category_map = {
@@ -93,10 +88,7 @@ if selected_affects:
     ax.set_yticklabels([])
     ax.set_rlabel_position(0)
 
-    if fontprop:
-        ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20, fontproperties=fontprop)
-    else:
-        ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20)
+    ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20)
 
     st.pyplot(fig)
 
@@ -106,3 +98,7 @@ if selected_affects:
     st.download_button("Download PNG", buf.getvalue(), file_name=f"{title}_affective_map.png", mime="image/png")
 else:
     st.info("정동과 강도를 최소 하나 이상 입력해 주세요.")
+
+
+         
+       
