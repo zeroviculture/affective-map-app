@@ -1,26 +1,18 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-plt.rcParams['font.family'] = 'DejaVu Sans'
 import matplotlib.font_manager as fm
 import numpy as np
 import os
+import pandas as pd
 
-# 안전하게 경로 확인 + fallback
-font_paths = [
-    "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",  # Streamlit Cloud (Ubuntu)
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",  # 일반 대체 폰트
-]
-
-font_path = next((fp for fp in font_paths if os.path.exists(fp)), None)
-
-if font_path:
+# 한글 폰트 경로 확인
+font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"
+if os.path.exists(font_path):
     fontprop = fm.FontProperties(fname=font_path)
-    plt.rcParams["font.family"] = fontprop.get_name()
 else:
-    st.warning("⚠️ 한글 폰트를 찾을 수 없습니다. 기본 영문 폰트로 표시됩니다.")
+    fontprop = None
 
-
-# 전체 정동 태그와 범주 (매핑)
+# 정동-카테고리 매핑
 affective_category_map = {
     'absurd': 'Play / Lightness', 'alienating': 'Strangeness / Uncanny', 'ambiguous': 'meta-affect',
     'anxious': 'Tension / Unease', 'austere': 'Gravitas / Seriousness', 'blatant': 'Explicitness / Exposure',
@@ -45,7 +37,6 @@ affective_category_map = {
     'weighty': 'Gravitas / Seriousness', 'witty': 'Play / Lightness'
 }
 
-# 범주별 색상 매핑
 category_colors = {
     'Tension / Unease': '#ff4c4c', 'Excess / Intensity': '#ff4c4c', 'Explicitness / Exposure': '#ff4c4c',
     'Sublimity / Ominousness': '#ff4c4c',
@@ -88,8 +79,7 @@ if selected_affects:
     for label, value in zip(labels, values):
         category = affective_category_map.get(label, 'meta-affect')
         base_color = category_colors.get(category, '#cccccc')
-        color = base_color
-        colors.append(color)
+        colors.append(base_color)
 
     bars = ax.bar(angles, values, width=0.6, bottom=0.0, color=colors, edgecolor="black", alpha=0.7)
 
@@ -99,10 +89,15 @@ if selected_affects:
         ax.text(angle, radius, label, ha='center', va='center', fontsize=11)
 
     ax.set_xticks([])
-    ax.set_yticklabels(range(1, 6))
-    ax.set_yticklabels([])      # Remove numeric labels to keep it clean
-    ax.set_rlabel_position(0)   # Optional: set position of radial labels (not shown here)
-    ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20)
+    ax.set_yticks(range(1, 6))
+    ax.set_yticklabels([])
+    ax.set_rlabel_position(0)
+
+    if fontprop:
+        ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20, fontproperties=fontprop)
+    else:
+        ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20)
+
     st.pyplot(fig)
 
     import io
