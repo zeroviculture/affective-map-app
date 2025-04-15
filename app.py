@@ -3,11 +3,26 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import matplotlib.font_manager as fm
+import os
 
-# Set Korean font for matplotlib
-font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"
-fontprop = fm.FontProperties(fname=font_path)
-plt.rcParams['font.family'] = fontprop.get_name()
+# 안전하게 경로 확인 + fallback
+font_paths = [
+    "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",  # Ubuntu 계열 (Streamlit Cloud 가능성 있음)
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",  # 일반 대체 폰트
+]
+
+# 찾을 수 있는 폰트 경로 중 하나 선택
+font_path = next((fp for fp in font_paths if os.path.exists(fp)), None)
+
+if font_path:
+    fontprop = fm.FontProperties(fname=font_path)
+    import matplotlib.pyplot as plt
+    plt.rcParams["font.family"] = fontprop.get_name()
+else:
+    # 폰트 없을 경우 기본 설정 유지
+    import matplotlib.pyplot as plt
+    print("⚠️ Warning: No Korean-compatible font found. Using default.")
+
 
 # 전체 정동 태그와 범주 (매핑)
 affective_category_map = {
