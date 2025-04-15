@@ -101,7 +101,7 @@ if selected_affects:
     ax.set_yticklabels(range(1, 6))
     ax.set_yticklabels([])      # Remove numeric labels to keep it clean
     ax.set_rlabel_position(0)   # Optional: set position of radial labels (not shown here)
-    ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20)
+    ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20, fontproperties=fontprop)
     st.pyplot(fig)
 
     import io
