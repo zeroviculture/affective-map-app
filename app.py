@@ -2,6 +2,12 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import matplotlib.font_manager as fm
+
+# Set Korean font for matplotlib
+font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"
+fontprop = fm.FontProperties(fname=font_path)
+plt.rcParams['font.family'] = fontprop.get_name()
 
 # 전체 정동 태그와 범주 (매핑)
 affective_category_map = {
@@ -82,7 +88,9 @@ if selected_affects:
         ax.text(angle, radius, label, ha='center', va='center', fontsize=11)
 
     ax.set_xticks([])
-    ax.set_yticklabels([])
+    ax.set_yticklabels(range[1, 6])
+    ax.set_yticklabels([])      # Remove numeric labels to keep it clean
+    ax.set_rlabel_position(0)   # Optional: set position of radial labels (not shown here)
     ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20)
     st.pyplot(fig)
 
