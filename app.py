@@ -4,8 +4,14 @@ import numpy as np
 import os
 import pandas as pd
 
-# 기본 폰트를 DejaVu Sans로 설정 (한글 지원)
-plt.rcParams['font.family'] = 'DejaVu Sans'
+# ✅ 비밀번호 입력창 추가 (여기!)
+password = st.text_input("비밀번호를 입력하세요", type="password")
+if password != "7950":
+    st.warning("비밀번호가 틀렸습니다.")
+    st.stop()
+
+# 기본 폰트를 Noto Sans KR로 설정 (한글 지원)
+plt.rcParams['font.family'] = 'Noto Sans KR'
 
 # 정동-카테고리 매핑
 affective_category_map = {
