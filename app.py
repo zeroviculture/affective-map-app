@@ -103,7 +103,7 @@ if selected_affects:
         ax.text(angle, radius, label, ha='center', va='center', fontsize=11)
 
     ax.set_xticks([])
-    ax.set_yticklabels(range[1, 6])
+    ax.set_yticklabels(range(1, 6))
     ax.set_yticklabels([])      # Remove numeric labels to keep it clean
     ax.set_rlabel_position(0)   # Optional: set position of radial labels (not shown here)
     ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20)
