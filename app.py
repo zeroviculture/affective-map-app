@@ -88,7 +88,7 @@ if selected_affects:
     ax.set_yticklabels([])
     ax.set_rlabel_position(0)
 
-    ax.set_title(f"Affective Terrain Map ({title})", fontsize=14, pad=20)
+    fig.text(0.5, 1.05, f"Affective Terrain Map ({title})", fontsize=14, ha='center')
 
     st.pyplot(fig)
 
