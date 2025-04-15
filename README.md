@@ -1,3 +1,1 @@
-# Affective Terrain Map App
-
-Generate affective radar maps for films using Streamlit.
+[README.md](https://github.com/user-attachments/files/19754030/README.md)
