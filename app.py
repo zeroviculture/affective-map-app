@@ -1,6 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import numpy as np
 import os
 
 # 안전하게 경로 확인 + fallback
